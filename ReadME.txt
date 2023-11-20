@@ -1,6 +1,6 @@
 DATA STATISTICS CALCULATOR
 -------------------------
-A simple C program which takes in a txt file of number values, adds them to a an array, sorts it and computes the mean, median and standard deviation for the data.
+A simple C program which takes in a txt file of number values, adds them to a an array, sorts it and computes the mean, geometric mean, harmonic mean, median and standard deviation for the data.
 
 Project Description
 -------------------

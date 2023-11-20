@@ -2,7 +2,7 @@
 //11-19-2023
 
 //This is a simple program which reads number data from a txt file 
-//and computes the mean, median and standard deviation for the data set
+//and computes the mean, geomertic mean, harmonic mean, median and standard deviation for the data set
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -48,6 +48,28 @@ double meanArray(float *numArray, int *numElements){
     }
     mean = sum/(*numElements);
     return mean;
+}
+
+//Function to calculate the GEOMETRIC MEAN
+float geometricMeanArray(float *numArray, int *numElements){
+    float gMean;
+    double product = 1;
+    for(int i=0; i<*numElements; i++){
+        product = product * numArray[i];
+    }
+    gMean = pow(product, 1.0/(*numElements));
+    return gMean;
+}
+
+//Function to calculate the HARMONIC MEAN
+float harmonicMeanArray(float *numArray, int *numElements){
+    float hMean;
+    double sumReciprocal = 0;
+    for(int i=0; i<*numElements; i++){
+        sumReciprocal = sumReciprocal + 1/numArray[i];
+    }
+    hMean = *numElements / sumReciprocal;
+    return hMean;
 }
 
 //Function to calculate the MEDIAN
@@ -101,11 +123,17 @@ int main(int argc, char **argv){
     //Sort the array
     sortNum(numArray, &numElements);
         
-    double mean;
+    double mean, gMean, hMean;
     float median, stddev;   
 
     //Calcualting the MEAN
     mean = meanArray(numArray, &numElements);
+
+    //Calcualting the MEAN
+    gMean = geometricMeanArray(numArray, &numElements);
+
+    //Calcualting the MEAN
+    hMean = harmonicMeanArray(numArray, &numElements);
 
     //Calculating the MEDIAN
     median = medianArray(numArray, &numElements);
@@ -118,6 +146,8 @@ int main(int argc, char **argv){
     printf("-------------------------------------\n");
     printf("   Number of elements:%15d\n", numElements);
     printf("                 Mean:%15.3f\n", mean);
+    printf("       Geometric Mean:%15.3f\n", gMean);
+    printf("        Harmonic Mean:%15.3f\n", hMean);
     printf("               Median:%15.3f\n", median);
     printf("   Standard Deviation:%15.3f\n", stddev);
     printf("Unused array capacity:%15d\n", (arraySize-numElements));
