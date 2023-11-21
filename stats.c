@@ -104,18 +104,29 @@ int main(int argc, char **argv){
     numArray = (float*)malloc(arraySize * sizeof(float));
 
     //Reading the file and storing into an array
+    char buffer[100];
+    int ret;
     FILE *reads;
     reads = fopen(filename, "r");
     if(reads == NULL){
         printf("Error! Re-run the program with a proper filename\n");
         return -1;
     }
+    
     else{
-        while(!feof(reads)){
-            fscanf(reads, "%f", &numArray[numElements]);    //Make fscanf end when it reaches an empty line
-            numElements++;
-            if(numElements==arraySize  && !feof(reads)){
-                numArray = doubleArray(numArray, &numElements, &arraySize);
+        while (fgets(buffer, sizeof(buffer), reads)!= NULL)
+        {
+            if (buffer[0] != '\n')                                  //if the line is not a blank line
+            { 
+                ret = sscanf(buffer, "%f", &numArray[numElements]);
+                numElements++;
+                if(numElements==arraySize  && !feof(reads)){
+                    numArray = doubleArray(numArray, &numElements, &arraySize);
+                }
+            }
+            else
+            {
+                continue;
             }
         }
     }
